@@ -1,0 +1,39 @@
+﻿@page
+@model Proyec_Tienda_musica.Pages.CatalogoModel
+@{
+    ViewData["Title"] = "Catálogo";
+}
+
+<div class="page-header">
+    <h1>Catálogo</h1>
+    <p class="subtitle">— Consulta en tiempo real —</p>
+</div>
+
+<div class="content-wrapper">
+    <div id="contenedor" class="row g-4">
+        <p style="font-family:'VT323',monospace; font-size:1.4rem">Cargando instrumentos...</p>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        fetch('/api/Instrumentos')
+            .then(r => r.json())
+            .then(data => {
+                const cont = document.getElementById('contenedor');
+                cont.innerHTML = '';
+                data.forEach(item => {
+                    cont.innerHTML += `
+                        <div class="col-md-4">
+                            <div class="strokes-card">
+                                <h3>${item.instrumento_Nombre}</h3>
+                                <p><strong>Marca:</strong> ${item.marca}</p>
+                                <p><strong>Descripción:</strong> ${item.descripcion}</p>
+                                <p><strong>Precio:</strong> $${item.precio} MXN</p>
+                                <p><strong>Existencia:</strong> ${item.existencia} uds.</p>
+                            </div>
+                        </div>`;
+                });
+            });
+    </script>
+}
