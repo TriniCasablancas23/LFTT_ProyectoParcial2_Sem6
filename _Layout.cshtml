@@ -1,0 +1,314 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] — MusicStore</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul: #1a1aee;
+            --azul-oscuro: #1010bb;
+            --azul-claro: #3333ff;
+            --blanco: #ffffff;
+            --amarillo: #ffdd00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--azul);
+            color: var(--blanco);
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            min-height: 100vh;
+        }
+
+        /* ── NAVBAR ── */
+        .navbar-strokes {
+            background-color: var(--azul);
+            border-bottom: 3px solid var(--blanco);
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .navbar-brand-strokes {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.3rem;
+            color: var(--blanco) !important;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 16px 24px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+            .nav-links li a {
+                display: block;
+                font-family: 'Press Start 2P', cursive;
+                font-size: 0.55rem;
+                color: var(--blanco) !important;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                padding: 20px 16px;
+                text-decoration: none;
+                border-left: 1px solid rgba(255,255,255,0.2);
+                transition: background 0.2s;
+            }
+
+                .nav-links li a:hover {
+                    background-color: var(--azul-oscuro);
+                    text-decoration: underline;
+                }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            background-color: var(--azul);
+            border-bottom: 3px solid var(--blanco);
+            text-align: center;
+            padding: 40px 20px 28px;
+        }
+
+            .page-header h1 {
+                font-family: 'Press Start 2P', cursive;
+                font-size: 1.8rem;
+                color: var(--blanco);
+                letter-spacing: 4px;
+                text-transform: uppercase;
+                line-height: 1.6;
+            }
+
+            .page-header .subtitle {
+                font-family: 'VT323', monospace;
+                color: var(--amarillo);
+                font-size: 1.2rem;
+                letter-spacing: 4px;
+                text-transform: uppercase;
+                margin-top: 10px;
+            }
+
+        /* ── CONTENIDO ── */
+        .content-wrapper {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        /* ── TARJETAS ── */
+        .strokes-card {
+            background-color: var(--azul-oscuro);
+            border: 2px solid var(--blanco);
+            padding: 28px;
+            margin-bottom: 28px;
+        }
+
+            .strokes-card h3 {
+                font-family: 'Press Start 2P', cursive;
+                font-size: 0.8rem;
+                color: var(--amarillo);
+                border-bottom: 2px solid var(--blanco);
+                padding-bottom: 12px;
+                margin-bottom: 16px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                line-height: 1.8;
+            }
+
+        /* ── SECCIÓN TÍTULO ── */
+        .section-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            color: var(--blanco);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-bottom: 2px solid var(--amarillo);
+            padding-bottom: 10px;
+            margin-bottom: 24px;
+            margin-top: 16px;
+            line-height: 1.8;
+        }
+
+        /* ── TABLA ── */
+        .strokes-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+        }
+
+            .strokes-table thead tr {
+                background-color: var(--azul-oscuro);
+                border-bottom: 3px solid var(--blanco);
+            }
+
+            .strokes-table thead th {
+                font-family: 'Press Start 2P', cursive;
+                font-size: 0.55rem;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                padding: 14px 12px;
+                border: 1px solid rgba(255,255,255,0.3);
+                color: var(--amarillo);
+            }
+
+            .strokes-table tbody tr:hover {
+                background-color: var(--azul-claro);
+            }
+
+            .strokes-table tbody td {
+                padding: 10px 12px;
+                border: 1px solid rgba(255,255,255,0.2);
+                vertical-align: middle;
+                color: var(--blanco);
+            }
+
+            .strokes-table tr.fila-editar td {
+                background-color: var(--azul-oscuro);
+                border-top: 2px solid var(--amarillo);
+            }
+
+        /* ── FORMULARIO ── */
+        .strokes-form label {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            color: var(--amarillo);
+            display: block;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+            line-height: 2;
+        }
+
+        .strokes-form input[type="text"],
+        .strokes-form input[type="number"] {
+            background-color: var(--azul);
+            border: 2px solid var(--blanco);
+            padding: 8px 10px;
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            color: var(--blanco);
+            width: 100%;
+            margin-bottom: 8px;
+            outline: none;
+        }
+
+        .strokes-form input:focus {
+            border-color: var(--amarillo);
+        }
+
+        /* ── BOTONES ── */
+        .btn-strokes {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.55rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 10px 16px;
+            border: 2px solid var(--blanco);
+            background-color: var(--blanco);
+            color: var(--azul);
+            cursor: pointer;
+            transition: all 0.15s;
+            display: inline-block;
+            text-decoration: none;
+            line-height: 1.6;
+        }
+
+            .btn-strokes:hover {
+                background-color: var(--amarillo);
+                border-color: var(--amarillo);
+                color: var(--azul-oscuro);
+            }
+
+        .btn-strokes-outline {
+            background-color: transparent;
+            color: var(--blanco);
+        }
+
+            .btn-strokes-outline:hover {
+                background-color: var(--blanco);
+                color: var(--azul);
+            }
+
+        .btn-strokes-danger {
+            background-color: transparent;
+            border-color: #ff4444;
+            color: #ff4444;
+        }
+
+            .btn-strokes-danger:hover {
+                background-color: #ff4444;
+                border-color: #ff4444;
+                color: var(--blanco);
+            }
+
+        /* ── ORNAMENTO ── */
+        .ornament {
+            text-align: center;
+            color: var(--amarillo);
+            font-family: 'VT323', monospace;
+            font-size: 1.4rem;
+            margin: 24px 0;
+            letter-spacing: 8px;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background-color: var(--azul-oscuro);
+            border-top: 3px solid var(--blanco);
+            color: var(--blanco);
+            text-align: center;
+            padding: 20px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            letter-spacing: 2px;
+            margin-top: 60px;
+            line-height: 2.4;
+        }
+
+            footer a {
+                color: var(--amarillo);
+                text-decoration: none;
+            }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-strokes">
+        <a class="navbar-brand-strokes" href="/">"Humbug"" Music-Store</a>
+        <ul class="nav-links">
+            <li><a asp-page="/Index">Home</a></li>
+            <li><a asp-page="/infotienda">Info</a></li>
+            <li><a asp-page="/Menu">Menú</a></li>
+            <li><a asp-page="/Catalogo">Catálogo</a></li>
+            <li><a asp-page="/Recomendaciones">Recomendaciones</a></li>
+            <li><a asp-page="/ABCinstrumentos">Instrumentos</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer>
+        <p>© @DateTime.Now.Year — "HUMBUG" MUSIC-STORE — AGUASCALIENTES, MÉXICO</p>
+        <p><a asp-page="/Privacy">Privacidad</a></p>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
